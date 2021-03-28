@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using FamilyImageViewerApi.models;
 using FamilyImageViewerApi.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,10 +17,12 @@ namespace FamilyImageViewerApi.Controllers
 
     {
         private readonly IFamily _family;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public FamilyImageViewerController(IFamily family)
+        public FamilyImageViewerController(IFamily family,IWebHostEnvironment webHostEnvironment)
         {
             this._family = family;
+            this._webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -45,12 +49,14 @@ namespace FamilyImageViewerApi.Controllers
         // POST: FamilyImageViewer/Create
         [HttpPost]
        
-        public ActionResult Create([FromBody] Family family)
+        public async Task <ActionResult> Create([FromForm] Family family)
         {
+
             if (family == null)
             {
                 return BadRequest(ModelState);
             }
+            family.ImageName = await SaveImage(family.ImageFile);
             if (!_family.CreateFamilyMember(family))
             {
                 ModelState.AddModelError("", "Error in saving entry");
@@ -99,5 +105,22 @@ namespace FamilyImageViewerApi.Controllers
 
         }
 
+
+        [NonAction]
+        public async Task<string> SaveImage(IFormFile imageFile)
+        {
+
+            string imageName = new string(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray());
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+
+            var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", imageName);
+
+            using(var filestream= new FileStream(imagePath, FileMode.Create))
+            {
+              await  imageFile.CopyToAsync(filestream);
+            }
+            return imageName;
+
+        }
     }
 }

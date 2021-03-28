@@ -4,14 +4,16 @@ using FamilyImageViewerApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FamilyImageViewerApi.Migrations
 {
     [DbContext(typeof(FamilyImageViewerApiDbContext))]
-    partial class FamilyImageViewerApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210328033557_added_imageName_to_model")]
+    partial class added_imageName_to_model
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,15 +28,14 @@ namespace FamilyImageViewerApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("BirthDate")
+                    b.Property<DateTime>("BirthDay")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FamilyFirstName")
+                    b.Property<string>("FamilyRelation")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FamilyLastName")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
@@ -42,11 +43,12 @@ namespace FamilyImageViewerApi.Migrations
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Quote")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Relation")
+                    b.Property<string>("LastName")
                         .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("Quote")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FamilyId");

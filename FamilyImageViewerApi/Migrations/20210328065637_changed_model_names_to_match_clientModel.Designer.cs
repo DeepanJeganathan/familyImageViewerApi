@@ -4,14 +4,16 @@ using FamilyImageViewerApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FamilyImageViewerApi.Migrations
 {
     [DbContext(typeof(FamilyImageViewerApiDbContext))]
-    partial class FamilyImageViewerApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210328065637_changed_model_names_to_match_clientModel")]
+    partial class changed_model_names_to_match_clientModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
