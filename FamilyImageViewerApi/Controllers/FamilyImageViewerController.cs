@@ -67,9 +67,9 @@ namespace FamilyImageViewerApi.Controllers
            //return CreatedAtAction(nameof(FamilyMember), new { id = family.FamilyId }, family);
         }
 
-        [HttpPatch("{id}")]
+        [HttpPut("{id}")]
         
-        public ActionResult Edit(int id, [FromBody] Family family)
+        public ActionResult Edit(int id, [FromForm] Family family)
         {
             if (!_family.FamilyMemberIdExists(id))
             {
@@ -120,6 +120,7 @@ namespace FamilyImageViewerApi.Controllers
               await  imageFile.CopyToAsync(filestream);
             }
             return imageName;
+
 
         }
     }

@@ -35,15 +35,25 @@ namespace FamilyImageViewerApi
             services.AddDbContext<FamilyImageViewerApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IFamily, FamilyRepository>();
-            services.AddCors();
+           
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins("http://localhost:3000")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        );
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader());
-            if (env.IsDevelopment())
-            {
+            //app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader());
+            app.UseCors("CorsPolicy");
+            if (env.IsDevelopment()) 
+                {
                 app.UseDeveloperExceptionPage();
             }
 
@@ -52,7 +62,7 @@ namespace FamilyImageViewerApi
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Images")),
                 RequestPath = "/images"
             });
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
