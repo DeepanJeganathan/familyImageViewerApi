@@ -39,9 +39,9 @@ namespace FamilyImageViewerApi
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.WithOrigins("http://localhost:3000")
+                    builder => builder.WithOrigins("http://localhost:3000", "http://192.168.0.105:8081")
                         .AllowAnyMethod()
-                        .AllowAnyHeader()
+                        .AllowAnyHeader().AllowAnyOrigin()
                         );
             });
 

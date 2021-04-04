@@ -5,15 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FamilyImageViewerApi.Data;
+using Microsoft.AspNetCore.Hosting;
+
 namespace FamilyImageViewerApi.Repository
 {
     public class FamilyRepository : IFamily
     {
         private readonly FamilyImageViewerApiDbContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public FamilyRepository(FamilyImageViewerApiDbContext context)
+        public FamilyRepository(FamilyImageViewerApiDbContext context, IWebHostEnvironment hostEnvironment)
         {
             this._context = context;
+            this._hostEnvironment = hostEnvironment;
         }
 
 
@@ -37,6 +41,8 @@ namespace FamilyImageViewerApi.Repository
         public IEnumerable<Family> GetAll()
         {
             return _context.Families.ToList();
+           
+
         }
 
         public Family GetById(int id)

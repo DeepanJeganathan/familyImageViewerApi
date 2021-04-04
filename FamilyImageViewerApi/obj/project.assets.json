@@ -9307,23 +9307,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\djj02271\\.nuget\\packages\\": {},
+    "C:\\Users\\14168\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\djj02271\\source\\repos\\viewer\\api\\familyImageViewerApi\\FamilyImageViewerApi\\FamilyImageViewerApi.csproj",
+      "projectUniqueName": "C:\\Users\\14168\\source\\repos\\FamilyImageViewerApi\\familyImageViewerApiNew\\familyImageViewerApi\\FamilyImageViewerApi\\FamilyImageViewerApi.csproj",
       "projectName": "FamilyImageViewerApi",
-      "projectPath": "C:\\Users\\djj02271\\source\\repos\\viewer\\api\\familyImageViewerApi\\FamilyImageViewerApi\\FamilyImageViewerApi.csproj",
-      "packagesPath": "C:\\Users\\djj02271\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\djj02271\\source\\repos\\viewer\\api\\familyImageViewerApi\\FamilyImageViewerApi\\obj\\",
+      "projectPath": "C:\\Users\\14168\\source\\repos\\FamilyImageViewerApi\\familyImageViewerApiNew\\familyImageViewerApi\\FamilyImageViewerApi\\FamilyImageViewerApi.csproj",
+      "packagesPath": "C:\\Users\\14168\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\14168\\source\\repos\\FamilyImageViewerApi\\familyImageViewerApiNew\\familyImageViewerApi\\FamilyImageViewerApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\djj02271\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\14168\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9388,7 +9388,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.113\\RuntimeIdentifierGraph.json"
       }
     }
   }

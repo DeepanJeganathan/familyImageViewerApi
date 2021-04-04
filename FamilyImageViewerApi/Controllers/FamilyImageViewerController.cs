@@ -29,8 +29,22 @@ namespace FamilyImageViewerApi.Controllers
         // GET: FamilyImageViewer
         public ActionResult FamilyMembers()
         {
-
-            return Ok(_family.GetAll());
+            var model = _family.GetAll();
+             var newModel=   model.Select(x => new Family()
+                {
+                    FamilyId = x.FamilyId,
+                    FamilyFirstName = x.FamilyFirstName,
+                    FamilyLastName = x.FamilyLastName,
+                    BirthDate = x.BirthDate,
+                    Quote = x.Quote,
+                    Relation = x.Relation,
+                    ImageName = x.ImageName,
+                    ImageSrc = 
+                    String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.ImageName)
+                }).ToList();
+            
+           
+            return Ok(newModel);
         }
 
         [HttpGet("{id}")]
@@ -38,6 +52,7 @@ namespace FamilyImageViewerApi.Controllers
         public ActionResult FamilyMember(int id)
         {
             var familyMember = _family.GetById(id);
+            familyMember.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, familyMember.ImageName);
             if (familyMember == null)
             {
                 return NotFound();
@@ -69,12 +84,20 @@ namespace FamilyImageViewerApi.Controllers
 
         [HttpPut("{id}")]
         
-        public ActionResult Edit(int id, [FromForm] Family family)
+        public async Task<ActionResult> Edit(int id, [FromForm] Family family)
         {
             if (!_family.FamilyMemberIdExists(id))
             {
                 return NotFound();
             }
+
+            if (family.ImageFile!=null)
+            {
+                DeleteImage(family.ImageName);
+                family.ImageName = await SaveImage(family.ImageFile);
+
+            }
+
             if (!_family.UpdateFamilyMember(family)
 )
             {
@@ -121,7 +144,15 @@ namespace FamilyImageViewerApi.Controllers
             }
             return imageName;
 
+        }
 
+
+        [NonAction]
+        public void DeleteImage(string imageName)
+        {
+            var imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", imageName);
+            if (System.IO.File.Exists(imagePath))
+                System.IO.File.Delete(imagePath);
         }
     }
 }
